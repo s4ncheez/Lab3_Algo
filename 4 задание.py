@@ -1,6 +1,3 @@
-fin = open('priorityqueue.in')
-fout = open('priorityqueue.out', 'w')
-
 def heap(arr, i):
     parent = i
     left_ch = 2 * i + 1
