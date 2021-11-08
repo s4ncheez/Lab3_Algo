@@ -28,3 +28,23 @@ def extract_min(arr):
 def push(arr, key, num_of_push):
     arr += [ [-1, -1] ]
     decrease_key(arr, len(arr) - 1, key, num_of_push)
+
+def find_key_to_decrease(arr, i, key):
+    for k in range (len(arr)):
+        if arr[k][1] == i:
+            el_to_decrease = k
+            break
+    decrease_key(arr, el_to_decrease, key, i)
+
+def decrease_key(arr, i, key, num_of_push):
+    arr[i][0] = key
+    arr[i][1] = num_of_push
+    while (i > 0 and arr[(i - 1) // 2][0] > arr[i][0]):
+        arr[i], arr[(i - 1) // 2] = arr[(i - 1) // 2], arr[i]
+        i = (i - 1) // 2
+
+fin = open('priorityqueue.in')
+fout = open('priorityqueue.out', 'w')
+arr = []
+line = fin.readline()
+i = 0
