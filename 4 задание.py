@@ -1,6 +1,3 @@
-fin = open('priorityqueue.in')
-fout = open('priorityqueue.out', 'w')
-
 def heap(arr, i):
     parent = i
     left_ch = 2 * i + 1
@@ -28,3 +25,42 @@ def extract_min(arr):
 def push(arr, key, num_of_push):
     arr += [ [-1, -1] ]
     decrease_key(arr, len(arr) - 1, key, num_of_push)
+
+def find_key_to_decrease(arr, i, key):
+    for k in range (len(arr)):
+        if arr[k][1] == i:
+            el_to_decrease = k
+            break
+    decrease_key(arr, el_to_decrease, key, i)
+
+def decrease_key(arr, i, key, num_of_push):
+    arr[i][0] = key
+    arr[i][1] = num_of_push
+    while (i > 0 and arr[(i - 1) // 2][0] > arr[i][0]):
+        arr[i], arr[(i - 1) // 2] = arr[(i - 1) // 2], arr[i]
+        i = (i - 1) // 2
+
+fin = open('priorityqueue.in')
+fout = open('priorityqueue.out', 'w')
+arr = []
+line = fin.readline()
+i = 0
+while line:
+    action = line.split()[0]
+    if action == 'push':
+        n = int(line.split()[1])
+        push (arr, n, i)
+    elif action == 'extract-min':
+        mem = extract_min(arr)
+        if mem != '*':
+            mini = mem[0]
+            arr = mem[1]
+            print (mini, file = fout)
+        else:
+            print (mem, file = fout)
+    elif action == 'decrease-key':
+        n1, n2 = int(line.split()[1]) - 1, int(line.split()[2])
+        find_key_to_decrease(arr, n1, n2)
+    line = fin.readline()
+    i += 1
+fout.close()
