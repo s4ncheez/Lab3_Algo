@@ -12,3 +12,19 @@ def heap(arr, i):
     if parent != i:
         arr[i], arr[parent] = arr[parent], arr[i]
         heap(arr, parent)
+
+def extract_min(arr):
+    if len(arr) == 0:
+        return '*'
+    mini = arr[0][0]
+    arr[0][0] = arr[len(arr) - 1][0]
+    arr[0][1] = arr[len(arr) - 1][1]
+    arr[len(arr) - 1][0] = 0
+    arr[len(arr) - 1][1] = 0
+    arr = arr[:len(arr) - 1]
+    heap(arr, 0)
+    return mini, arr
+
+def push(arr, key, num_of_push):
+    arr += [ [-1, -1] ]
+    decrease_key(arr, len(arr) - 1, key, num_of_push)
