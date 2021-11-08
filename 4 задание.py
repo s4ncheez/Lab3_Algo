@@ -48,3 +48,22 @@ fout = open('priorityqueue.out', 'w')
 arr = []
 line = fin.readline()
 i = 0
+while line:
+    action = line.split()[0]
+    if action == 'push':
+        n = int(line.split()[1])
+        push (arr, n, i)
+    elif action == 'extract-min':
+        mem = extract_min(arr)
+        if mem != '*':
+            mini = mem[0]
+            arr = mem[1]
+            print (mini, file = fout)
+        else:
+            print (mem, file = fout)
+    elif action == 'decrease-key':
+        n1, n2 = int(line.split()[1]) - 1, int(line.split()[2])
+        find_key_to_decrease(arr, n1, n2)
+    line = fin.readline()
+    i += 1
+fout.close()
